@@ -8,9 +8,10 @@ const Store = types
     loading: false,
   })
   .actions((self) => ({
-    load: flow(function* () {
+    load: flow(function* (dueDate: string) {
       self.loading = true;
-      const response = yield ApiServices.get('projects');
+      const queryParams = `dueInHours=${dueDate}`;
+      const response = yield ApiServices.get('projects', queryParams);
       self.projects = response.data.content;
       self.loading = false;
     }),

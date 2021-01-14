@@ -4,7 +4,7 @@ import {Alert} from 'react-native';
 const config = {
   apiUrl: 'https://cloud.memsource.com/web/api2/v1/',
   debug: true,
-  token: '0oQoqL11d0UulIW3DjgipyO0oHCVjGSifqUUMACzi3qkgNCqEj03dx2ji3o2Gkh3e',
+  token: '2uQgHg5sSrEdqaSSjSxmg611SCJYhk2ME7fkxgagF0AmmHKU7j24iiN92rHG05ls5',
 };
 
 export default {
@@ -26,10 +26,10 @@ export default {
       Alert.alert('Error', e);
     }
   },
-  get: async (url: string, throwErrors = false) => {
+  get: async (url: string, queryParams: string, throwErrors = false) => {
     try {
       const response = await axios.get(
-        `${config.apiUrl}${url}?token=${config.token}`,
+        `${config.apiUrl}${url}?token=${config.token}&${queryParams}`,
       );
       if (throwErrors && (response.status <= 100 || response.status >= 400)) {
         throw new Error(

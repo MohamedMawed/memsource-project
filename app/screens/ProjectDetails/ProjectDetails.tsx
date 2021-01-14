@@ -22,8 +22,10 @@ const Header = () => {
         <Ionicons name="arrow-back" size={26} color={colors.white} />
       </TouchableCrossPlatform>
       <View style={styles.headerActionsContainer}>
-        <TouchableCrossPlatform style={{marginRight: 15}}>
-          <AntDesign name="plus" size={25} color={colors.white} />
+        <TouchableCrossPlatform>
+          <View style={styles.headerIcon}>
+            <AntDesign name="plus" size={25} color={colors.white} />
+          </View>
         </TouchableCrossPlatform>
         <TouchableCrossPlatform>
           <Entypo name="dots-three-vertical" size={20} color={colors.white} />
@@ -55,6 +57,7 @@ const ProjectContent: FC<{project: ProjectType}> = ({project}) => {
         value={project.targetLangs.reduce(
           (res, e, idx) =>
             `${res}${e}${idx < project.targetLangs.length - 1 ? ', ' : ''}`,
+          '',
         )}
       />
       <InfoRow title={'Owner'} value={project.owner.userName} />
@@ -70,7 +73,7 @@ const ProjectSection = () => {
           <View style={styles.sectionIconContainer}>
             <FontAwesome name="file" size={20} color={colors.white} />
           </View>
-          <Text style={{fontSize: 16}}>Jobs</Text>
+          <Text style={styles.projectSectionText}>Jobs</Text>
         </View>
         <Ionicons
           name="md-chevron-forward"

@@ -1,5 +1,6 @@
 import Loader from 'app/components/Loader/Loader';
 import ProjectCard from 'app/components/ProjectCard/ProjectCard';
+import ProjectFilter from 'app/components/ProjectFilter/ProjectFilter';
 import ProjectStore from 'app/stores/Project/ProjectStore';
 import {ProjectType} from 'app/types/ProjectTypes';
 import {observer} from 'mobx-react';
@@ -12,18 +13,22 @@ const Project: FC<void> = (): ReactElement => {
   };
 
   useEffect(() => {
-    ProjectStore.load();
+    ProjectStore.load('0');
   }, []);
 
-  if (ProjectStore.loading) {
-    return <Loader />;
-  }
   return (
-    <FlatList
-      keyExtractor={(e, _) => `${e}`}
-      data={ProjectStore.projects}
-      renderItem={renderItem}
-    />
+    <>
+      <ProjectFilter updateView={(dueDate) => ProjectStore.load(dueDate)} />
+      {ProjectStore.loading ? (
+        <Loader />
+      ) : (
+        <FlatList
+          keyExtractor={(e, _) => `${e}`}
+          data={ProjectStore.projects}
+          renderItem={renderItem}
+        />
+      )}
+    </>
   );
 };
 

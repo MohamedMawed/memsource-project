@@ -78,4 +78,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginRight: 15,
   },
+  headerIcon: {
+    marginRight: 15,
+  },
+  projectSectionText: {
+    fontSize: 16,
+  },
 });
