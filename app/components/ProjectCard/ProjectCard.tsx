@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
+import colors from 'app/theme/colors';
 import React, {FC, ReactElement} from 'react';
 import {Text, TouchableHighlight, View} from 'react-native';
 import styles from './styles';
-
 interface rowProps {
   title: string;
-  value: string;
+  value: string | number;
 }
 const CardHeader: FC<rowProps> = ({title, value}) => {
   return (
@@ -24,20 +24,34 @@ const CardRow: FC<rowProps> = ({title, value}) => {
     </View>
   );
 };
-const ProjectCard: FC<{}> = (): ReactElement => {
+
+interface Project {
+  id: string;
+  name: string;
+  sourceLang: string;
+  targetLangs: Array<string>;
+  status: string;
+  internalId: number;
+  dateDue: string | null;
+  client: string | null;
+  owner: {
+    userName: string;
+  };
+}
+const ProjectCard: FC<{project: Project}> = ({project}): ReactElement => {
   const navigation = useNavigation();
   return (
     <TouchableHighlight
-      underlayColor={'lightgrey'}
-      onPress={() => navigation.navigate('ProjectDetails')}
+      underlayColor={colors.lightGrey}
+      onPress={() => navigation.navigate('ProjectDetails', {project: project})}
       style={styles.cardContainer}>
       <>
-        <CardHeader title={'Project Name'} value={'New'} />
+        <CardHeader title={project.name} value={project.status} />
         <View style={styles.seperator} />
-        <CardRow title={'Project Name'} value={'New'} />
-        <CardRow title={'Project Name'} value={'New'} />
-        <CardRow title={'Project Name'} value={'New'} />
-        <CardRow title={'Project Name'} value={'New'} />
+        <CardRow title={'#'} value={project.internalId} />
+        <CardRow title={'Due Date'} value={project.dateDue || 'No due date'} />
+        <CardRow title={'Client'} value={project.client || 'No Client'} />
+        <CardRow title={'Owner'} value={project.owner.userName} />
       </>
     </TouchableHighlight>
   );

@@ -9,8 +9,9 @@ import {isAndroid} from '../../helpers/device';
 interface ButtonProps {
   children: ReactElement;
   style?: ViewStyle;
+  onPress?: () => void;
 }
-const Button: FC<ButtonProps> = ({children, ...props}) => {
+const TouchableCrossPlatform: FC<ButtonProps> = ({children, ...props}) => {
   if (isAndroid) {
     return (
       <TouchableNativeFeedback {...props}>{children}</TouchableNativeFeedback>
@@ -19,4 +20,4 @@ const Button: FC<ButtonProps> = ({children, ...props}) => {
   return <TouchableOpacity {...props}>{children}</TouchableOpacity>;
 };
 
-export default Button;
+export default TouchableCrossPlatform;

@@ -1,3 +1,4 @@
+import colors from 'app/theme/colors';
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
@@ -13,7 +14,7 @@ export default StyleSheet.create({
   headerValue: {
     fontSize: 16,
     fontWeight: '500',
-    color: 'blue',
+    color: colors.primary,
   },
   rowContainer: {
     flexDirection: 'row',

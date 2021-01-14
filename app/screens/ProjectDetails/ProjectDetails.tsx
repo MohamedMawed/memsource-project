@@ -1,18 +1,24 @@
 import React, {FC, ReactElement} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import colors from 'app/theme/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TouchableCrossPlatform from 'app/components/Button/Button';
 import styles from './styles';
+import colors from 'app/theme/colors';
+import {useNavigation} from '@react-navigation/native';
+import {ProjectType, TitleValueProps} from 'app/types/ProjectTypes';
 
 const Header = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
-      <TouchableCrossPlatform>
+      <TouchableCrossPlatform
+        onPress={() => {
+          navigation.goBack();
+        }}>
         <Ionicons name="arrow-back" size={26} color={colors.white} />
       </TouchableCrossPlatform>
       <View style={styles.headerActionsContainer}>
@@ -27,25 +33,31 @@ const Header = () => {
   );
 };
 
-const InfoRow = () => {
+const InfoRow: FC<TitleValueProps> = ({title, value}) => {
   return (
     <View style={styles.infoRowContainer}>
-      <Text style={styles.infoRowTitle}>Source Language</Text>
-      <Text style={styles.infoRowValue}>ar</Text>
+      <Text style={styles.infoRowTitle}>{title}</Text>
+      <Text style={styles.infoRowValue}>{value}</Text>
     </View>
   );
 };
 
-const ProjectContent = () => {
+const ProjectContent: FC<{project: ProjectType}> = ({project}) => {
   return (
     <View style={styles.projectContentContainer}>
       <View style={styles.projectIconContainer}>
         <Octicons name="file-directory" size={30} color={colors.white} />
       </View>
-      <Text style={styles.projectTitle}>Project title</Text>
-      <InfoRow />
-      <InfoRow />
-      <InfoRow />
+      <Text style={styles.projectTitle}>{project.name}</Text>
+      <InfoRow title={'Source Language'} value={project.sourceLang} />
+      <InfoRow
+        title={'Target Language(s)'}
+        value={project.targetLangs.reduce(
+          (res, e, idx) =>
+            `${res}${e}${idx < project.targetLangs.length - 1 ? ', ' : ''}`,
+        )}
+      />
+      <InfoRow title={'Owner'} value={project.owner.userName} />
     </View>
   );
 };
@@ -69,7 +81,10 @@ const ProjectSection = () => {
     </TouchableCrossPlatform>
   );
 };
-const ProjectDetails: FC<void> = (): ReactElement => {
+const ProjectDetails: FC<{route: {params: {project: ProjectType}}}> = ({
+  route,
+}): ReactElement => {
+  const project = route.params.project;
   return (
     <>
       <SafeAreaView
@@ -77,7 +92,7 @@ const ProjectDetails: FC<void> = (): ReactElement => {
           backgroundColor: colors.primary,
         }}>
         <Header />
-        <ProjectContent />
+        <ProjectContent project={project} />
       </SafeAreaView>
       <ProjectSection />
       <ProjectSection />
