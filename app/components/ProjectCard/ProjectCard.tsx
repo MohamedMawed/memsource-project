@@ -1,13 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import colors from 'app/theme/colors';
+import {TitleValueProps} from 'app/types/ProjectTypes';
 import React, {FC, ReactElement} from 'react';
 import {Text, TouchableHighlight, View} from 'react-native';
 import styles from './styles';
-interface rowProps {
-  title: string;
-  value: string | number;
-}
-const CardHeader: FC<rowProps> = ({title, value}) => {
+
+const CardHeader: FC<TitleValueProps> = ({title, value}) => {
   return (
     <View style={styles.headerRowContainer}>
       <Text style={styles.headerTitle}>{title}</Text>
@@ -16,7 +14,7 @@ const CardHeader: FC<rowProps> = ({title, value}) => {
   );
 };
 
-const CardRow: FC<rowProps> = ({title, value}) => {
+const CardRow: FC<TitleValueProps> = ({title, value}) => {
   return (
     <View style={styles.rowContainer}>
       <Text style={styles.rowText}>{title}</Text>
