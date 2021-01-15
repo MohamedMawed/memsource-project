@@ -1,4 +1,4 @@
-# Memsource Project screens ( List project - Project details )
+# Memsource Project screens (List project - Project details)
 
 ### install deps:  ```npm i```
 ### run on android:  ```npm run android```
