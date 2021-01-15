@@ -34,6 +34,7 @@ const ProjectFilter: React.SFC<ProjectFilterProps> = ({updateView}) => {
           }}>
           {options.map((e) => (
             <MenuOption
+              key={e}
               customStyles={{
                 optionTouchable: {
                   activeOpacity: 40,
