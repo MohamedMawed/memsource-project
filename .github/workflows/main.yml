@@ -31,6 +31,9 @@ jobs:
       - name: install deps
         run: npm i
 
+      - name: run tests
+        run: npm test
+
       - name: run tslint lint checks
         run: npm run lint
       
