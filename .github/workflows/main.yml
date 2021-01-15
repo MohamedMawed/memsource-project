@@ -28,6 +28,9 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
 
+      - name: install deps
+        run: npm i
+
       - name: run tslint lint checks
         run: npm run lint
       
