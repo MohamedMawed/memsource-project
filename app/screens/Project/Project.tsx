@@ -7,7 +7,7 @@ import {observer} from 'mobx-react';
 import React, {FC, ReactElement, useEffect} from 'react';
 import {FlatList} from 'react-native';
 
-const Project: FC<void> = (): ReactElement => {
+const Project: FC<{}> = (): ReactElement => {
   const renderItem = ({item}: {item: ProjectType}) => {
     return <ProjectCard key={item.id} project={item} />;
   };
